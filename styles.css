@@ -306,9 +306,9 @@ section {
 .stat {
     text-align: center;
     padding: 1.5rem;
-    background: white;
+    background: #181c20;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
 }
 
 .stat h3 {
@@ -323,6 +323,7 @@ section {
     font-weight: 500;
 }
 
+
 .about-image {
     display: flex;
     justify-content: center;
@@ -331,12 +332,12 @@ section {
 .image-placeholder {
     width: 250px;
     height: 250px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #181c20;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
 }
 
 .image-placeholder i {
@@ -352,12 +353,12 @@ section {
 }
 
 .project-card {
-    background: white;
+    background: #181c20;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
     transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #23272f;
 }
 
 .project-card:hover {
@@ -442,10 +443,10 @@ section {
 }
 
 .skill-category {
-    background: white;
+    background: #181c20;
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
 }
 
 .skill-category h3 {
@@ -529,10 +530,10 @@ section {
 }
 
 .contact-form {
-    background: white;
+    background: #181c20;
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
 }
 
 .form-group {
