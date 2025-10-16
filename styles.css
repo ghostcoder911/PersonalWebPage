@@ -508,18 +508,21 @@ section {
     gap: 1rem;
 }
 
+
 .contact-method {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: #f9fafb;
+    background: #181c20;
     border-radius: 8px;
     transition: all 0.3s ease;
+    color: #e5e7eb;
+    font-weight: 500;
 }
 
 .contact-method:hover {
-    background: #e5e7eb;
+    background: #23272f;
     transform: translateX(5px);
 }
 
