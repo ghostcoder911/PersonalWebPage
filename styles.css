@@ -489,15 +489,16 @@ section {
     gap: 4rem;
 }
 
+
 .contact-info h3 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: #1f2937;
+    color: #e5e7eb;
 }
 
 .contact-info p {
-    color: #6b7280;
+    color: #d1d5db;
     margin-bottom: 2rem;
     line-height: 1.7;
 }
