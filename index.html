@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Global particles.js container (site-wide) -->
+    <div id="particles-js"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -32,8 +34,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- tsParticles container -->
-        <div id="tsparticles"></div>
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -53,8 +53,8 @@
             <div class="hero-image">
                 <div class="profile-card">
                     <div class="profile-image">
-                        <!-- Replace with your actual image -->
-                        <i class="fas fa-user-circle"></i>
+                        <!-- Actual profile image -->
+                        <img src="npm.jpeg" alt="Neeraj P M" loading="lazy" id="profile-photo">
                     </div>
                 </div>
             </div>
@@ -79,15 +79,15 @@
                     </ul>
                     <div class="about-stats">
                         <div class="stat">
-                            <h3>10+</h3>
+                            <h3 data-target="10">0+</h3>
                             <p>Years Experience</p>
                         </div>
                         <div class="stat">
-                            <h3>25+</h3>
+                            <h3 data-target="25">0+</h3>
                             <p>Projects Delivered</p>
                         </div>
                         <div class="stat">
-                            <h3>8+</h3>
+                            <h3 data-target="8">0+</h3>
                             <p>Domains & Platforms</p>
                         </div>
                     </div>
@@ -338,7 +338,8 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+    <!-- particles.js (lightweight) -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

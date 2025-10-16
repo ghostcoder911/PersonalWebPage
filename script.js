@@ -178,24 +178,29 @@ window.addEventListener('scroll', () => {
 const animateCounters = () => {
     const counters = document.querySelectorAll('.stat h3');
     counters.forEach(counter => {
-        const target = parseInt(counter.textContent);
-        const increment = target / 100;
+        const target = parseInt(counter.getAttribute('data-target') || '0', 10);
+        if (!target) return;
+
         let current = 0;
-        
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                counter.textContent = Math.ceil(current) + '+';
+        const duration = 1200; // ms
+        let startTime = null;
+
+        const updateCounter = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            current = Math.floor(progress * target);
+            counter.textContent = current + '+';
+            if (progress < 1) {
                 requestAnimationFrame(updateCounter);
             } else {
                 counter.textContent = target + '+';
             }
         };
-        
-        // Start animation when element is visible
+
+        // Start animation only when element enters viewport
         const rect = counter.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-            updateCounter();
+            requestAnimationFrame(updateCounter);
         }
     });
 };
@@ -209,33 +214,128 @@ window.addEventListener('scroll', () => {
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-    // Initialize tsParticles background (inspired by react-particles configs)
-    if (window.tsParticles) {
-        tsParticles.load('tsparticles', {
-            background: { color: { value: 'transparent' } },
-            fpsLimit: 60,
-            interactivity: {
-                events: {
-                    onHover: { enable: true, mode: 'repulse' },
-                    onClick: { enable: true, mode: 'push' },
-                    resize: true
+    // Initialize particles.js (lightweight)
+    if (window.particlesJS) {
+        // responsive particle count
+        const isMobile = window.innerWidth <= 768;
+        const particleCount = isMobile ? 25 : 60;
+
+        try {
+            console.log('particles.js detected, initializing (load)...');
+            particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": particleCount,
+                    "density": { "enable": true, "value_area": 800 }
                 },
-                modes: {
-                    repulse: { distance: 120, duration: 0.4 },
-                    push: { quantity: 3 }
+                "color": { "value": ["#60a5fa", "#a78bfa", "#fbbf24"] },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.6, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 130,
+                    "color": "#60a5fa",
+                    "opacity": 0.25,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
                 }
             },
-            particles: {
-                color: { value: ['#60a5fa', '#a78bfa', '#fbbf24'] },
-                links: { enable: true, distance: 140, color: '#60a5fa', opacity: 0.3, width: 1 },
-                move: { enable: true, speed: 1.2, direction: 'none', outModes: { default: 'out' } },
-                number: { value: 80, density: { enable: true, area: 800 } },
-                opacity: { value: 0.6 },
-                shape: { type: 'circle' },
-                size: { value: { min: 1, max: 4 } }
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": { "enable": true, "mode": ["repulse", "grab"] },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": { "distance": 120 },
+                    "push": { "particles_nb": 4 },
+                    "grab": { "distance": 140, "line_linked": { "opacity": 0.6 } }
+                }
             },
-            detectRetina: true,
+            "retina_detect": true,
+            "config_demo": {
+                "hide_card": true
+            }
         });
+        } catch (err) {
+            console.error('particles.js initialization failed on load:', err);
+        }
+    }
+});
+
+// Initialize particles earlier on DOMContentLoaded too (helps single-page loads)
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.particlesJS) {
+        const isMobile = window.innerWidth <= 768;
+        const particleCount = isMobile ? 25 : 60;
+
+        try {
+            console.log('particles.js detected, initializing (DOMContentLoaded)...');
+            // Avoid double init: if a canvas exists inside #particles-js, don't re-init
+            const container = document.getElementById('particles-js');
+            const existingCanvas = container && container.querySelector('canvas');
+            if (!existingCanvas) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": particleCount,
+                            "density": { "enable": true, "value_area": 800 }
+                        },
+                        "color": { "value": ["#60a5fa", "#a78bfa", "#fbbf24"] },
+                        "shape": { "type": "circle" },
+                        "opacity": { "value": 0.6, "random": false },
+                        "size": { "value": 3, "random": true },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 130,
+                            "color": "#60a5fa",
+                            "opacity": 0.25,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1.2,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "window",
+                        "events": {
+                            "onhover": { "enable": true, "mode": ["repulse", "grab"] },
+                            "onclick": { "enable": true, "mode": "push" },
+                            "resize": true
+                        },
+                        "modes": {
+                            "repulse": { "distance": 120 },
+                            "push": { "particles_nb": 4 },
+                            "grab": { "distance": 140, "line_linked": { "opacity": 0.6 } }
+                        }
+                    },
+                    "retina_detect": true,
+                    "config_demo": { "hide_card": true }
+                });
+            } else {
+                console.log('particles.js canvas already exists; skipping re-init');
+            }
+        } catch (err) {
+            console.error('particles.js initialization failed on DOMContentLoaded:', err);
+        }
+    } else {
+        console.warn('particles.js not found (DOMContentLoaded).');
     }
 });
 
